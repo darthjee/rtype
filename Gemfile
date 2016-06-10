@@ -32,8 +32,13 @@ gem 'pg'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'factory_girl', '~> 4.0'
+  gem 'rspec-rails'
+  gem 'pry-rails'
+  gem 'pry-nav'
+  gem 'simplecov'
+  gem 'rspec-collection_matchers'
+  gem 'zonebie'
 end
 
 group :development do
@@ -41,3 +46,6 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :test do
+  gem 'webmock'
+end
