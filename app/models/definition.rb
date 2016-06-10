@@ -3,4 +3,3 @@ module Definition
     'definition_'
   end
 end
-
