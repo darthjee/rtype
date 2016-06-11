@@ -8,7 +8,7 @@ class Seed::Creator
 
   def create
     seed_class.all.each do |seed|
-      final_class.create(seed.attributes)
+      Unit.new(seed, final_class).create
     end
   end
 end
