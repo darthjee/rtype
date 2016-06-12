@@ -1,0 +1,19 @@
+- id: 1
+  name: Caça
+  slug: fighter
+- id: 2
+  name: Corveta
+  slug: corvett
+- id: 3
+  name: Fragata
+  slug: frigate
+- id: 4
+  name: Destroyer
+  slug: destroyer
+- id: 5
+  name: Cruzador
+  slug: cruisier
+- id: 6
+  name: Nave Mãe
+  slug: mother-ship
+
