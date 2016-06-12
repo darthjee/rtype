@@ -1,4 +1,4 @@
-class Seed::Creator::Unit
+class Seed::Loader::Unit
   attr_reader :seed, :final_class
   delegate :attributes, :id, to: :seed
 

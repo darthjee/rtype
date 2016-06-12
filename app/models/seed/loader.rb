@@ -1,4 +1,4 @@
-class Seed::Creator
+class Seed::Loader
   attr_reader :seed_class, :final_class
 
   def initialize(seed_class, final_class)
