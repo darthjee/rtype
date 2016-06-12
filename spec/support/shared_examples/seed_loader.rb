@@ -10,6 +10,12 @@ shared_examples 'a class seed loader' do |class_name, seed_class, final_class|
   it_behaves_like 'a real seed loader', seed_class, final_class
 end
 
+shared_examples 'a bulk class seed loader' do |classes_names, seed_class, final_class|
+  let(:subject) { described_class.new(*classes_names) }
+
+  it_behaves_like 'a real seed loader', seed_class, final_class
+end
+
 shared_examples 'a real seed loader' do |seed_class, final_class|
   describe '#create' do
     it do
