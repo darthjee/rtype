@@ -3,4 +3,10 @@
   slug: huginn
   race_id: 1
   unit_class_id: 1
+  life: 10
+  armor: 10
+  dexterity: 10
+  initiative: 10
+  attacks: 1
+  power: 1
 
