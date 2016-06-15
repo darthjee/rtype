@@ -1,0 +1,12 @@
+first_attacker:
+  id: 1
+  event_id: 1
+  division_id: 1
+  role: attacker
+
+first_defender:
+  id: 2
+  event_id: 1
+  division_id: 2
+  role: defender
+
