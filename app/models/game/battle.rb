@@ -3,4 +3,3 @@ module Game::Battle
     'game_battle_'
   end
 end
-
