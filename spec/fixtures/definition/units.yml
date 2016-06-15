@@ -1,0 +1,11 @@
+ranger:
+  id: 1
+  slug: ranger
+  unit_class_id: 1
+  race_id: 1
+
+soldier:
+  id: 2
+  slug: soldier
+  unit_class_id: 1
+  race_id: 1
