@@ -18,6 +18,10 @@ end
 
 shared_examples 'a real seed loader' do |seed_class, final_class|
   describe '#create' do
+    before do
+      final_class.destroy_all
+    end
+
     it do
       expect do
         subject.create
