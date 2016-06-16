@@ -17,9 +17,16 @@ class Engine::Battle::Group
   end
 
   def damage(value)
-    avarage = value * 1.0 / size
+    avarage = (value * 1.0 / size).to_i
     members.each do |member|
       member.apply_damage(avarage)
+    end
+
+    lasting = value - avarage*size
+    array = members.to_a
+    while lasting > 0 do
+      array.random!.apply_damage(1)
+      lasting -= 1
     end
   end
 

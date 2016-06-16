@@ -53,11 +53,16 @@ RSpec.describe Engine::Battle::Group do
     end
 
     context 'when damaging each squadron evenly' do
-      let(:damage) { attackers_number + 1 }
+      let(:damage) { attackers_number + 2 }
+      before do
+        allow_any_instance_of(Array).to receive(:random!) do |arr|
+          arr.shift
+        end
+      end
 
       it 'split doamage among the squadrons' do
         subject.damage(damage)
-        expect(squadrons.reload.map(&:damage)).to eq(Array.new(attackers_number, 1))
+        expect(squadrons.reload.map(&:damage)).to eq([ 1, 2, 2 ])
       end
     end
   end
