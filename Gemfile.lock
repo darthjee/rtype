@@ -40,6 +40,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.3)
+    bidu-core_ext (1.2.2)
+      activesupport
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
@@ -192,6 +194,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_hash
+  bidu-core_ext (= 1.2.2)
   coffee-rails (~> 4.1.0)
   factory_girl (~> 4.0)
   jbuilder (~> 2.0)
@@ -212,4 +215,4 @@ DEPENDENCIES
   zonebie
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
