@@ -10,6 +10,10 @@ class Engine::Battle::Group
     Game::Squadron.where(division_id: division_ids, unit: unit)
   end
 
+  def quantity
+    members.sum(:quantity)
+  end
+
   private
 
   def division_ids
