@@ -1,5 +1,7 @@
 class Engine::Battle::Group
   attr_reader :participants, :unit
+  delegate :armor, :dexterity, :attacks, :power, :precision, to: :unit
+  delegate :size, to: :members
 
   def initialize(participants, unit)
     @participants = participants
@@ -12,6 +14,13 @@ class Engine::Battle::Group
 
   def quantity
     members.sum(:quantity)
+  end
+
+  def damage(value)
+    avarage = value * 1.0 / size
+    members.each do |member|
+      member.apply_damage(avarage)
+    end
   end
 
   private
