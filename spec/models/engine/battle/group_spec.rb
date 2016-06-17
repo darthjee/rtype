@@ -48,7 +48,7 @@ RSpec.describe Engine::Battle::Group do
 
       it 'split doamage among the squadrons' do
         subject.damage(damage)
-        expect(squadrons.reload.map(&:damage)).to eq(Array.new(attackers_number, 1))
+        expect(squadrons.reload.pluck(:damage)).to eq(Array.new(attackers_number, 1))
       end
     end
 
@@ -57,12 +57,12 @@ RSpec.describe Engine::Battle::Group do
 
       it 'split doamage among the squadrons' do
         subject.damage(damage)
-        expect(squadrons.reload.map(&:damage).sum).to eq(damage)
+        expect(squadrons.reload.pluck(:damage).sum).to eq(damage)
       end
       
       it 'split doamage evenly and randomly among the squadrons' do
         subject.damage(damage)
-        expect(squadrons.reload.map(&:damage).max).to eq(2)
+        expect(squadrons.reload.pluck(:damage).max).to eq(2)
       end
     end
 
@@ -76,17 +76,17 @@ RSpec.describe Engine::Battle::Group do
 
       it 'split doamage among the squadrons' do
         subject.damage(damage)
-        expect(squadrons.reload.map(&:damage).sum).to eq(damage)
+        expect(squadrons.reload.pluck(:damage).sum).to eq(damage)
       end
 
       it 'splits damage according to the unit quantity giving the lesser value to the lesser squadron' do
         subject.damage(damage)
-        expect(squadrons.reload.map(&:damage).min).to be <= 1
+        expect(squadrons.reload.pluck(:damage).min).to be <= 1
       end
 
       it 'splits damage according to the unit quantity giving the greater value to the greater squadron' do
         subject.damage(damage)
-        expect(squadrons.reload.map(&:damage).max).to be >= 97
+        expect(squadrons.reload.pluck(:damage).max).to be >= 97
       end
 
       it 'damages the largest with the most damage' do
