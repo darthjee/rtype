@@ -55,15 +55,43 @@ RSpec.describe Engine::Battle::Group do
     context 'when damaging each squadron evenly' do
       let(:damage) { attackers_number + 2 }
 
-
       it 'split doamage among the squadrons' do
         subject.damage(damage)
         expect(squadrons.reload.map(&:damage).sum).to eq(damage)
       end
       
-      it 'split doamage among the squadrons' do
+      it 'split doamage evenly and randomly among the squadrons' do
         subject.damage(damage)
         expect(squadrons.reload.map(&:damage).max).to eq(2)
+      end
+    end
+
+    context 'when squadrons have huge size differency' do
+      let(:attackers_number) { 2 }
+      let(:damage) { 100 }
+      let(:biggest) { squadrons.find_by(quantity: 100) }
+      before do
+        attackers.first.division.squadrons.first.update(quantity: 1)
+      end
+
+      it 'split doamage among the squadrons' do
+        subject.damage(damage)
+        expect(squadrons.reload.map(&:damage).sum).to eq(damage)
+      end
+
+      it 'splits damage according to the unit quantity giving the lesser value to the lesser squadron' do
+        subject.damage(damage)
+        expect(squadrons.reload.map(&:damage).min).to be <= 1
+      end
+
+      it 'splits damage according to the unit quantity giving the greater value to the greater squadron' do
+        subject.damage(damage)
+        expect(squadrons.reload.map(&:damage).max).to be >= 97
+      end
+
+      it 'damages the largest with the most damage' do
+        subject.damage(damage)
+        expect(biggest.reload.damage).to be >= 97
       end
     end
   end

@@ -17,16 +17,21 @@ class Engine::Battle::Group
   end
 
   def damage(value)
-    avarage = (value * 1.0 / size).to_i
+    applied = []
+
     members.each do |member|
-      member.apply_damage(avarage)
+      dam = value * member.quantity / quantity
+      applied << dam
+      member.apply_damage(dam)
     end
 
-    lasting = value - avarage*size
+    lasting = value - applied.sum
     array = members.to_a
-    while lasting > 0 do
-      array.random!.apply_damage(1)
-      lasting -= 1
+    while lasting > 0 && array.present? do
+      squadron = array.random!
+      dam = (lasting * squadron.quantity * 1.0 / quantity).ceil
+      squadron.apply_damage(dam)
+      lasting -= dam
     end
   end
 
