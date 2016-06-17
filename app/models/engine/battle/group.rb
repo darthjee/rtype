@@ -17,22 +17,7 @@ class Engine::Battle::Group
   end
 
   def damage(value)
-    applied = []
-
-    members.each do |member|
-      dam = value * member.quantity / quantity
-      applied << dam
-      member.apply_damage(dam)
-    end
-
-    lasting = value - applied.sum
-    array = members.to_a
-    while lasting > 0 && array.present? do
-      squadron = array.random!
-      dam = (lasting * squadron.quantity * 1.0 / quantity).ceil
-      squadron.apply_damage(dam)
-      lasting -= dam
-    end
+    DamageDistribuitor.new(members, value).apply
   end
 
   private
