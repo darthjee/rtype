@@ -8,12 +8,13 @@ RSpec.describe Engine::Battle::Group do
   let(:subject) { described_class.new(attackers, unit) }
   let(:quantity) { 100 }
   let(:units)  { Definition::Unit.all }
+  let(:start_damage) { 0 }
 
   before do
     attackers_number.times do
       attackers.create(division: create(:division)).tap do |participant|
         units.each do |unit|
-          participant.division.squadrons.create(unit: unit, quantity: quantity)
+          participant.division.squadrons.create(unit: unit, quantity: quantity, damage: start_damage)
         end
       end
     end
@@ -92,6 +93,19 @@ RSpec.describe Engine::Battle::Group do
       it 'damages the largest with the most damage' do
         subject.damage(damage)
         expect(biggest.reload.damage).to be >= 97
+      end
+    end
+
+    context 'when squadrons already have damage' do
+      let(:start_damage) { 30 }
+      let(:attackers_number) { 1 }
+      let(:squadron) { squadrons.first }
+      let(:damage) { 10 }
+
+      it 'adds damage' do
+        expect do
+          subject.damage(damage)
+        end.to change { squadron.reload.damage }.by(damage)
       end
     end
   end

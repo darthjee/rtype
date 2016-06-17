@@ -20,7 +20,7 @@ class Engine::Battle::Group
 
     def apply_damages
       damages.each do |squadron, damage|
-        squadron.update(damage: damage)
+        squadron.update(damage: squadron.damage + damage)
       end
     end
 
