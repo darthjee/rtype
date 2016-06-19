@@ -41,7 +41,6 @@ RSpec.describe Engine::Battle::Group do
   end
 
   describe '#damage' do
-    let(:units)  { Definition::Unit.where(id: unit.id) }
     let(:squadrons) { subject.members.order(:id) }
 
     context 'when damaging each squadron evenly' do
