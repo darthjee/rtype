@@ -42,7 +42,7 @@ RSpec.describe Engine::Battle::Group do
 
   describe '#damage' do
     let(:units)  { Definition::Unit.where(id: unit.id) }
-    let(:squadrons) { subject.members }
+    let(:squadrons) { subject.members.order(:id) }
 
     context 'when damaging each squadron evenly' do
       let(:damage) { attackers_number }
@@ -87,12 +87,38 @@ RSpec.describe Engine::Battle::Group do
 
       it 'splits damage according to the unit quantity giving the greater value to the greater squadron' do
         subject.damage(damage)
-        expect(squadrons.reload.pluck(:damage).max).to be >= 97
+        expect(squadrons.reload.pluck(:damage).max).to be >= 99
       end
 
       it 'damages the largest with the most damage' do
         subject.damage(damage)
-        expect(biggest.reload.damage).to be >= 97
+        expect(biggest.reload.damage).to be >= 99
+      end
+
+      context 'when randomic damage gives damage to first squadron' do
+        before do
+          allow_any_instance_of(Array).to receive(:random!) do |array|
+            array.shift
+          end
+        end
+
+        it 'damages the first more' do
+          subject.damage(damage)
+          expect(squadrons.reload.pluck(:damage)).to eq([ 0, 100 ])
+        end
+      end
+
+      context 'when randomic damage gives damage to first squadron' do
+        before do
+          allow_any_instance_of(Array).to receive(:random!) do |array|
+            array.pop
+          end
+        end
+
+        it 'damages the first more' do
+          subject.damage(damage)
+          expect(squadrons.reload.pluck(:damage)).to eq([ 1, 99 ])
+        end
       end
     end
 
